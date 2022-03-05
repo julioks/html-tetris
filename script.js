@@ -146,19 +146,25 @@ function moveDown(gameArray,direction){
             const ey=e.y;
             
             try {
-                if ( !(0<=ex+addx && ex+addx<gameArray.length) || !(0<=ey+addy &&ey+addy<gameArray[0].length)) {
+                if ( !(0<=ex+addx && ex+addx<gameArray.length))  {
                     f1=false;
                     const at = activeTetri;
                     gameArray=lockTetri(gameArray,at);
                      activeTetri =JSON.parse(JSON.stringify(pieces[ Math.floor(Math.random() * pieces.length)]));
                     break;
-                }else if (gameArray[ex+addx][ey+addy] == "l") {
+                }else if (gameArray[ex+addx][ey] == "l") {
                     f1=false;
                     const at = activeTetri;
                     gameArray=lockTetri(gameArray,at);
                      activeTetri= JSON.parse(JSON.stringify(pieces[ Math.floor(Math.random() * pieces.length)]));
                     break;
 
+                }else if (gameArray[ex+addx][ey] == "l") {
+                    
+                }
+                 else if (!(0<=ey+addy &&ey+addy<gameArray[0].length)||(gameArray[ex][ey+addy] == "l")) {
+                    f1=false;
+                    break;
                 }
             } catch (error) {
                 // f1=false;
