@@ -69,12 +69,12 @@ function keyis(e){
 
  drawTable(gameGrid);
 function drawTable(drawWhat) {
-
+    let drawFlag=true;
     for (let i = 0; i < activeTetri.length; i++) {
         const e = activeTetri[i];
         if (drawWhat[e.x][e.y]=="l") {
-            document.getElementById("up").innerHTML="vsio, pizdiec";
-        throw new error();
+            document.getElementById("up").innerText="vsio, pizdiec";
+            drawFlag=false;
         }
     }
     
@@ -83,16 +83,20 @@ function drawTable(drawWhat) {
     myNode.removeChild(myNode.lastChild);
   }
   var table = document.createElement('table');
-  for (let i = 0; i < activeTetri.length; i++) {
-    const e = activeTetri[i];
-    drawWhat[e.x][e.y]="c";
-}
+
+  if(drawFlag){
+    for (let i = 0; i < activeTetri.length; i++) {
+      const e = activeTetri[i];
+      drawWhat[e.x][e.y]="c";
+  }
+  }
+ 
   for (var i = 0; i < 20; i++) {
     var tr = document.createElement('tr');
     for (var j = 0; j < 10; j++) {
       var td = document.createElement('td');
       td.dataset.state = drawWhat[i][j];
-      td.innerHTML = i + ':' + j;
+      //td.innerHTML = i + ':' + j;
       tr.append(td);
     }
 
