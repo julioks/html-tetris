@@ -1,6 +1,3 @@
-console.log('hello!');
-
-
 var gameGrid = [
   ['o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o'],
   ['o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o'],
@@ -21,184 +18,327 @@ var gameGrid = [
   ['o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o'],
   ['o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o'],
   ['o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o'],
-  ['o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o'],
+  ['o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o'],  
+  ['o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o'],['o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o'],
+  //['l', 'l', 'l', 'o', 'o', 'l', 'l', 'l', 'l', 'l'],
 ];
-function piece(x,y) {
-    this.x=x;
-    this.y=y;
+
+function piece(x, y) {
+  this.x = x;
+  this.y = y;
 }
-const pieces = [
-    [ new piece(0,5),new piece(0,4),new piece(1,5),new piece(1,4)],
-    [new piece(0,5),new piece(0,4),new piece(0,3),new piece(0,6)],
-    [new piece(0,5),new piece(1,4),new piece(1,5),new piece(2,4)],
-    [new piece(0,4),new piece(1,4),new piece(1,5),new piece(2,5)],
-    [new piece(0,5),new piece(1,5),new piece(2,5),new piece(2,4)],
-    [new piece(0,5),new piece(1,5),new piece(2,5),new piece(1,4)]
-    
-]
 
+function fullPiece(pieces, x, y, pieceNo, rotNo) {
+  this.pieces = pieces;
+  this.x = x;
+  this.y = y;
+  this.pieceNo = pieceNo;
+  this.rotNo = rotNo;
+}
+const availablePieces = [
+  new fullPiece(
+    [new piece(1,0),
+    new piece(1,1),
+    new piece(2,1),
+    new piece(2,0)],
+    0,4,0,0),
+new fullPiece(
+    [new piece(0,0),
+     new piece(0,1),
+     new piece(0,2),
+     new piece(0,-1)],
+    0,4,1,1),
+    new fullPiece(
+        [new piece(0,0),
+         new piece(1,0),
+         new piece(2,0),
+         new piece(3,0)],
+        0,4,1,0),
+new fullPiece(
+[new piece(1,0),
+    new piece(1,1),
+    new piece(2,2),
+    new piece(2,1)],
+    0,4,2,0), new fullPiece(
+    [new piece(0,2),
+        new piece(1,1),
+        new piece(1,2),
+        new piece(2,1)],
+        0,4,2,1),
+new fullPiece(
+[new piece(1,0),
+    new piece(1,1),
+    new piece(1,2),
+    new piece(2,2)],
+    0,4,3,0),new fullPiece(
+    [new piece(1,1),
+        new piece(1,2),
+        new piece(1,0),
+        new piece(0,0)],
+        0,4,3,2),
+        new fullPiece(
+        [new piece(2,0),
+            new piece(0,1),
+            new piece(1,1),
+            new piece(2,1)],
+            0,4,3,1),new fullPiece(
+            [new piece(0,2),
+                new piece(0,1),
+                new piece(1,1),
+                new piece(2,1)],
+                0,4,3,3),
+    new fullPiece(
+        [new piece(1,0),
+            new piece(2,0),
+            new piece(1,1),
+            new piece(1,2)],
+            0,4,4,0),
+            new fullPiece(
+                [new piece(0,0),
+                    new piece(0,1),
+                    new piece(1,1),
+                    new piece(2,1)],
+                    0,4,4,1),
+                    new fullPiece(
+                        [new piece(1,0),
+                            new piece(1,2),
+                            new piece(1,1),
+                            new piece(0,2)],
+                            0,4,4,2),new fullPiece(
+                                [new piece(0,1),
+                                    new piece(2,1),
+                                    new piece(1,1),
+                                    new piece(2,2)],
+                                    0,4,4,3),
+    new fullPiece(
+        [new piece(1,1),
+            new piece(1,2),
+            new piece(2,0),
+            new piece(2,1)],
+            0,4,5,0),new fullPiece(
+                [new piece(0,1),
+                    new piece(1,1),
+                    new piece(1,2),
+                    new piece(2,2)],
+                    0,4,5,1),
+    new fullPiece(
+        [new piece(1,1),
+            new piece(1,2),
+            new piece(1,0),
+            new piece(2,1)],
+            0,4,6,0),
+            new fullPiece(
+                [new piece(0,1),
+                    new piece(1,1),
+                    new piece(2,1),
+                    new piece(1,0)],
+                    0,4,6,1),new fullPiece(
+                        [new piece(1,1),
+                            new piece(1,2),
+                            new piece(1,0),
+                            new piece(0,1)],
+                            0,4,6,2),new fullPiece(
+                                [new piece(0,1),
+                                    new piece(1,1),
+                                    new piece(1,2),
+                                    new piece(2,1)],
+                                    0,4,6,3),
 
-var activeTetri =JSON.parse(JSON.stringify(pieces[ Math.floor(Math.random() * pieces.length)]));
+];
+var activePiece = giveRandomPiece();
+var linesCleared=0;
+var startedFlag=false;
 
 document.body.onkeydown = function(e){
-   keyis(e)
+  keyis(e)
 };
 function keyis(e){ 
-    var rgx = /Arrow\w+/; 
-    switch (e.code) {
-        case "ArrowDown":
-        moveDown(gameGrid,"down");
-            break;
-            case "ArrowRight":
-                moveDown(gameGrid,"right");
-                break;
-            case "ArrowLeft":
-                moveDown(gameGrid,"left");
-                break;
-            case "ArrowUp":
-                moveDown(gameGrid,"down");
-                break;
-    
-        default:
-        console.log(e);
-       
-            break;
-    }
-    }
+   var rgx = /Arrow\w+/; 
+   switch (e.code) {
+       case "ArrowDown":
+       move(gameGrid, activePiece,"down");
+           break;
+           case "ArrowRight":
+               move(gameGrid, activePiece,"right");
+               break;
+           case "ArrowLeft":
+               move(gameGrid, activePiece,"left");
+               break;
+           case "ArrowUp":
+               rotate(gameGrid,activePiece);
+               break;
+   
+       default:
+       console.log(e);
+      
+           break;
+   }
+   }
 
 
- drawTable(gameGrid);
-function drawTable(drawWhat) {
-    let drawFlag=true;
-    for (let i = 0; i < activeTetri.length; i++) {
-        const e = activeTetri[i];
-        if (drawWhat[e.x][e.y]=="l") {
-            document.getElementById("up").innerText="vsio, pizdiec";
-            drawFlag=false;
-        }
-    }
-    
-    const myNode = document.getElementById("playfield");
+//drawGrid(gameGrid);
+function startThis(){
+  if (!startedFlag) {
+    setInterval(()=>{move(gameGrid, activePiece,"down")}, 1000);
+  }
+  startedFlag=true;
+}
+
+
+function drawGrid(drawable) {
+  const myNode = document.getElementById('playfield');
   while (myNode.firstChild) {
     myNode.removeChild(myNode.lastChild);
   }
-  var table = document.createElement('table');
-
-  if(drawFlag){
-    for (let i = 0; i < activeTetri.length; i++) {
-      const e = activeTetri[i];
-      drawWhat[e.x][e.y]="c";
+  checkAndClear(drawable);
+  try {
+    checkGameOver(drawable);
+  } catch (error) {
+    document.getElementById("name").innerHTML="vsio, prisižaidę"
+    return;
   }
-  }
- 
-  for (var i = 0; i < 20; i++) {
-    var tr = document.createElement('tr');
-    for (var j = 0; j < 10; j++) {
-      var td = document.createElement('td');
-      td.dataset.state = drawWhat[i][j];
-      //td.innerHTML = i + ':' + j;
-      tr.append(td);
+  
+  clearCurrents(drawable);
+  addCurrents(drawable, activePiece);
+  var finalTable = document.createElement('table');
+  for (var i = 2; i < drawable.length; i++) {
+    var addRow = document.createElement('tr');
+    for (var j = 0; j < drawable[i].length; j++) {
+      var addData = document.createElement('td');
+      addData.dataset.state = drawable[i][j];
+      addRow.append(addData);
     }
-
-    table.append(tr);
-
+    finalTable.append(addRow);
   }
-  document.getElementById("playfield").append(table);
+  document.getElementById('playfield').append(finalTable);
+  console.log(availablePieces);
 }
-
-function moveDown(gameArray,direction){
-    var addx =0;
-    var addy =0;
-    switch (direction) {
-        case "down":
-            addx=1;
-            break; 
-            case "left":
-            addy=-1;
-            break; 
-            case "right":
-            addy=1;
-            break;
-    
-        default:
-            break;
-    }
-
-
-    for (let i = 0; i < gameArray.length; i++) {
-        const e = gameArray[i];
-        for (let j = 0; j < e.length; j++) {
-            if (e[j]=="c") {
-                e[j]="o";
-            }
-
-            
-        }
+function checkPlacement(grid, active) {
+  console.log(grid);
+  for (var i = 0; i < active.pieces.length; i++) {
+    try {
+      if (
+        grid[active.x + active.pieces[i].x][active.y + active.pieces[i].y] ==
+          'l' ||
+        active.x + active.pieces[i].x >= grid.length 
+      ) {
+        console.log('soft no');
+        return false;
+      }
+      else if(
         
+        active.y + active.pieces[i].y >= grid[0].length|| active.y + active.pieces[i].y < 0
+      ){
+        return "on wall"
+      }
+    } catch {
+      console.log('hard no');
+      return false;
+    }
+  }
+  return true;
+}
+function clearCurrents(grid) {
+  for (var i = 0; i < grid.length; i++) {
+    for (var j = 0; j < grid[i].length; j++) {
+      if (grid[i][j] == 'c') {
+        grid[i][j] = 'o';
+      }
+    }
+  }
+  return grid;
+}
+function addCurrents(grid, active) {
+  if (checkPlacement(grid, active)) {
+    for (var i = 0; i < active.pieces.length; i++) {
+      grid[active.x + active.pieces[i].x][active.y + active.pieces[i].y] = 'c';
+    }
+  }
+  return grid;
+}
+function move(grid, active, direction) {
+  var addx = 0;
+  var addy = 0;
+  switch (direction) {
+    case 'down':
+      addx = 1;
+      break;
+    case 'left':
+      addy = -1;
+      break;
+    case 'right':
+      addy = 1;
+      break;
+    default:
+  }
+  var testActive = JSON.parse(JSON.stringify(active));
+  testActive.x = testActive.x + addx;
+  testActive.y = testActive.y + addy;
+  grid = clearCurrents(grid);
+  if (checkPlacement(grid, testActive)==1) {
+    activePiece = testActive;
+    
+  } else if(!checkPlacement(grid, testActive)&&direction=="down"){
+    grid=lock(grid,activePiece);
+    activePiece = giveRandomPiece() ;
+  }
+  drawGrid(grid);
+  gameGrid=grid;
+}
+function lock(grid, piece){
+  var lockedGrid= JSON.parse(JSON.stringify(grid));
+  for (let i = 0; i < piece.pieces.length; i++) {
+    lockedGrid[piece.pieces[i].x+piece.x][piece.pieces[i].y+piece.y]="l";
+  }
+  return lockedGrid;
+}
+function giveRandomPiece(){
+  var notrotatedpieces = JSON.parse(JSON.stringify(
+    availablePieces.filter(norotpiece=>norotpiece.rotNo==0)
+  ));
+  return notrotatedpieces[ Math.floor(Math.random() * notrotatedpieces.length)]
+}
+function checkAndClear(grid){
+  for (let i = 0; i < grid.length; i++) {
+    var clearFlag=true;
+    for (let j = 0; j < grid[i].length; j++) {
+     if (grid[i][j]!="l") {
+       clearFlag=false;
+     }
+    }
+    if (clearFlag) {
+      linesCleared++;
+      document.getElementById("linesCleared").innerHTML="Lines cleared: "+linesCleared;
+      for (let k = i; k >= 0; k--) {
+        if (k-1>=0) {
+          grid[k]=JSON.parse(JSON.stringify(grid[k-1]))
+        }
+        else{
+          grid[k]=['o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o'];
+        }
+      }
+    }
+  }
+}
+function rotate(grid, active){
+  var nextoneref = availablePieces.filter(element => ((element.pieceNo == active.pieceNo)&&(element.rotNo==active.rotNo+1)));
+  if(nextoneref.length==0)
+    {
+      nextoneref =  availablePieces.filter(element => ((element.pieceNo == active.pieceNo)&&(element.rotNo==0)));
+    }
+    var nextone= JSON.parse(JSON.stringify(nextoneref[0]));
+    nextone.x=active.x;
+    nextone.y=active.y;
+    if(checkPlacement(grid,nextone)==true){
+      activePiece=nextone;
+    }
+    drawGrid(grid);
+}
+function checkGameOver(grid){
+  for (let i = 0; i < grid[1].length; i++) {
+    if (grid[1][i]=="l") {
+      throw new error();
     }
     
-
-        let f1=true;
-        for (let i = 0; i < activeTetri.length; i++) {
-            const e = activeTetri[i];
-            
-            const ex=e.x;
-            const ey=e.y;
-            
-            try {
-                if ( !(0<=ex+addx && ex+addx<gameArray.length))  {
-                    f1=false;
-                    const at = activeTetri;
-                    gameArray=lockTetri(gameArray,at);
-                     activeTetri =JSON.parse(JSON.stringify(pieces[ Math.floor(Math.random() * pieces.length)]));
-                    break;
-                }else if (gameArray[ex+addx][ey] == "l") {
-                    f1=false;
-                    const at = activeTetri;
-                    gameArray=lockTetri(gameArray,at);
-                     activeTetri= JSON.parse(JSON.stringify(pieces[ Math.floor(Math.random() * pieces.length)]));
-                    break;
-
-                }else if (gameArray[ex+addx][ey] == "l") {
-                    
-                }
-                 else if (!(0<=ey+addy &&ey+addy<gameArray[0].length)||(gameArray[ex][ey+addy] == "l")) {
-                    f1=false;
-                    break;
-                }
-            } catch (error) {
-                // f1=false;
-                // gameArray=lockTetri(gameArray,activeTetri);
-              
-                // activeTetri = [new piece(0,5),new piece(0,4),new piece(1,5),new piece(1,4),];
-
-            }
-            
-        }
-        if (f1) {
-            for (let i = 0; i < activeTetri.length; i++) {
-                if(gameArray[activeTetri[i].x][activeTetri[i].y]){
-                    activeTetri[i].x=activeTetri[i].x+addx;
-                    activeTetri[i].y=activeTetri[i].y+addy;
-                    gameArray[activeTetri[i].x][activeTetri[i].y]="c"
-                }
-    
-    
-            }
-        }
-        
-    
-
-
-  console.log(activeTetri);
-    drawTable(gameArray);
-    console.log(gameArray);
-
-}
-function lockTetri(gameArray,at){
-for (let i = 0; i < at.length; i++) {
-    console.log(i+":"+at[i].y + at.length)
-    gameArray[at[i].x][at[i].y]="l";
-}
-return gameArray;
+  }
 }

@@ -1,25 +1,24 @@
 body {
-    background: aliceblue;
-  }
-  
-  
-  table{
-    background-color: black;
-  }
-  td {
-    border: 1px solid plack;
-    width: 50px;
-    height: 50px;
-    background-color: white  ;
-  }
-  td[data-state="o"]{
-  
-      background-color: aquamarine;
-    
-  }
-  td[data-state="l"]{
-  
-    background-color: red;
-  
+  background: aliceblue;
+  font-size: 2vh;
 }
-  
+
+table {
+  background-color: black;
+}
+td {
+  border: 1px solid plack;
+  width: 4vh;
+  height: 4vh;
+  background-color: white;
+}
+td[data-state='o'] {
+  background-color: aquamarine;
+}
+td[data-state='l'] {
+  background-color: red;
+}
+#game{
+ display: flex;
+}
+
