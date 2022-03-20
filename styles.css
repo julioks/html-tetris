@@ -1,6 +1,6 @@
 body {
   background: aliceblue;
-  font-size: 2vh;
+  font-size: 4vh;
 }
 
 table {
@@ -20,5 +20,9 @@ td[data-state='l'] {
 }
 #game{
  display: flex;
+}
+h1{
+  margin: 0;
+  font-size: 7vh;
 }
 

@@ -1,4 +1,4 @@
-var gameGrid = [
+var gridPreset = [
   ['o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o'],
   ['o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o'],
   ['o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o'],
@@ -145,8 +145,8 @@ new fullPiece(
                                     0,4,6,3),
 
 ];
-var activePiece = giveRandomPiece();
-var linesCleared=0;
+var activePiece;
+var linesCleared;
 var startedFlag=false;
 
 document.body.onkeydown = function(e){
@@ -175,13 +175,25 @@ function keyis(e){
    }
    }
 
-
+   var gameGrid
+   var gameLoop;
 //drawGrid(gameGrid);
 function startThis(){
   if (!startedFlag) {
-    setInterval(()=>{move(gameGrid, activePiece,"down")}, 1000);
+    gameGrid=JSON.parse(JSON.stringify(gridPreset));
+    activePiece = giveRandomPiece();
+    linesCleared=0;
+    startedFlag=true;
+    drawGrid(gameGrid);
+    document.getElementById("start").innerHTML="stop";
+    document.getElementById("name").innerHTML="tetris wit a budget"
+    gameLoop= setInterval(()=>{move(gameGrid, activePiece,"down")}, 1000);
+  }else{
+    clearInterval(gameLoop);
+    document.getElementById("start").innerHTML="gimmi njuan";
+    startedFlag=false;
   }
-  startedFlag=true;
+  
 }
 
 
@@ -195,6 +207,7 @@ function drawGrid(drawable) {
     checkGameOver(drawable);
   } catch (error) {
     document.getElementById("name").innerHTML="vsio, prisižaidę"
+    document.getElementById("start").innerHTML="reset";
     return;
   }
   
